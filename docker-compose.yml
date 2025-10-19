@@ -1,0 +1,40 @@
+services:
+  db:
+    image: postgres
+    container_name: db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    restart: always
+    ports: 
+      - 5432:5432
+    volumes:
+      - ./pData:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB} -t 1"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 10s
+  porus_app:
+    container_name: porus_app
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8008:5000
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      RDS_USERNAME: ${POSTGRES_USER}
+      RDS_PASSWORD: ${POSTGRES_PASSWORD}
+      RDS_HOSTNAME: db
+      RDS_PORT: 5432
+      RDS_DB_NAME: ${POSTGRES_DB}
+    links:
+      - db
+volumes:
+  db-volume:
+    
