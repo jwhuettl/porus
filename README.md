@@ -32,6 +32,6 @@ The DEV branch will implement GTFS-realtime data along with archival data that t
 
 ### Rest-API-Dev
 
-This branch is entirely dependent on which source is being implemented as all of the sources I have looked at have different API specifications. This branch will **NOT** see a lot of development time as it really does enable the seemless addition of new sources nor does it align with the core idea of the project.
+This branch is entirely dependent on which source is being implemented as all of the sources I have looked at have different API specifications. This branch will **NOT** see a lot of development time as it really does not enable the seemless addition of new sources nor does it align with the core idea of the project.
 
 
